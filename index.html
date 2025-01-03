@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medieval Civilizations Companion App</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB0mM6Opz9tcbYZdo1knx7aD6YcYsDQUCk",
+      authDomain: "fjordr-auth.firebaseapp.com",
+      projectId: "fjordr-auth",
+      storageBucket: "fjordr-auth.appspot.com",
+      messagingSenderId: "813540345580",
+      appId: "1:813540345580:web:ea0c72d84054a7261d87c9",
+      measurementId: "G-FDCL2PT2WB"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
+
+    window.signup = async function () {
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        document.getElementById('authMessage').textContent = 'Account created successfully!';
+      } catch (error) {
+        document.getElementById('authMessage').textContent = `Error: ${error.message}`;
+      }
+    };
+
+    window.login = async function () {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        document.getElementById('authMessage').textContent = 'Login successful!';
+      } catch (error) {
+        document.getElementById('authMessage').textContent = `Error: ${error.message}`;
+      }
+    };
+  </script>
+  <style>
+    /* Responsive Design */
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+      font-family: 'Cinzel', serif;
+      background-image: url('https://i.imgur.com/WxPphL7.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: #3b2f2f;
+      width: 100%;
+      height: 100%;
+    }
+
+    header {
+      background-color: #523a28;
+      color: #e4c79d;
+      padding: 10px;
+      text-align: center;
+      font-size: 1.8em;
+      border-bottom: 3px solid #d1a56d;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      background-color: #402e1a;
+      padding: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    nav a {
+      color: #f4e4c1;
+      text-decoration: none;
+      padding: 8px 15px;
+      margin: 5px;
+      border: 2px solid #d1a56d;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    nav a:hover {
+      background-color: #704c2e;
+      color: white;
+    }
+
+    section {
+      padding: 15px;
+    }
+
+    footer {
+      background-color: #402e1a;
+      color: #f4e4c1;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9em;
+      border-top: 3px solid #d1a56d;
+    }
+
+    .auth-container {
+      max-width: 350px;
+      margin: 20px auto;
+      text-align: center;
+      background: rgba(244, 228, 193, 0.9);
+      border: 3px solid #d1a56d;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    input {
+      width: calc(100% - 20px);
+      max-width: 300px;
+      padding: 10px;
+      margin: 10px auto;
+      display: block;
+      border: 2px solid #d1a56d;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    button {
+      width: calc(100% - 20px);
+      max-width: 300px;
+      padding: 10px;
+      margin: 10px auto;
+      background-color: #523a28;
+      color: #e4c79d;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background-color: #704c2e;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 14px;
+      }
+
+      header {
+        font-size: 1.5em;
+      }
+
+      nav a {
+        padding: 8px 10px;
+        font-size: 0.9em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 12px;
+      }
+
+      nav a {
+        padding: 5px 8px;
+        font-size: 0.8em;
+      }
+
+      button, input {
+        font-size: 0.9em;
+      }
+
+      footer {
+        font-size: 0.8em;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    Medieval Civilizations Companion App
+  </header>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#details">Game Details</a>
+    <a href="#play">Play</a>
+    <a href="#news">News</a>
+    <a href="#auth">Account</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <section id="auth">
+    <h2>Account Login / Signup</h2>
+    <div class="auth-container">
+      <h3>Login</h3>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <h3>Create Account</h3>
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="password" id="signupPassword" placeholder="Password">
+      <button onclick="signup()">Create Account</button>
+      <p id="authMessage"></p>
+    </div>
+  </section>
+  <footer>
+    © 2025 Medieval Civilizations - All Rights Reserved
+  </footer>
+</body>
+</html>
