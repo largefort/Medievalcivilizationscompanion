@@ -7,8 +7,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-
+    
     const firebaseConfig = {
       apiKey: "AIzaSyB0mM6Opz9tcbYZdo1knx7aD6YcYsDQUCk",
       authDomain: "fjordr-auth.firebaseapp.com",
@@ -21,31 +20,6 @@
 
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-    const auth = getAuth();
-
-    window.signup = async function () {
-      const email = document.getElementById('signupEmail').value;
-      const password = document.getElementById('signupPassword').value;
-
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        document.getElementById('authMessage').textContent = 'Account created successfully!';
-      } catch (error) {
-        document.getElementById('authMessage').textContent = `Error: ${error.message}`;
-      }
-    };
-
-    window.login = async function () {
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        document.getElementById('authMessage').textContent = 'Login successful!';
-      } catch (error) {
-        document.getElementById('authMessage').textContent = `Error: ${error.message}`;
-      }
-    };
   </script>
   <style>
     /* Responsive Design */
@@ -109,45 +83,36 @@
       border-top: 3px solid #d1a56d;
     }
 
-    .auth-container {
-      max-width: 350px;
-      margin: 20px auto;
-      text-align: center;
-      background: rgba(244, 228, 193, 0.9);
-      border: 3px solid #d1a56d;
-      border-radius: 15px;
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .content-section {
       padding: 15px;
+      background: rgba(244, 228, 193, 0.9);
+      border: 2px solid #d1a56d;
+      border-radius: 15px;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
     }
 
-    input {
-      width: calc(100% - 20px);
-      max-width: 300px;
-      padding: 10px;
-      margin: 10px auto;
-      display: block;
-      border: 2px solid #d1a56d;
-      border-radius: 10px;
-      font-size: 1em;
+    .content-section h2 {
+      margin-bottom: 15px;
     }
 
-    button {
-      width: calc(100% - 20px);
-      max-width: 300px;
-      padding: 10px;
-      margin: 10px auto;
-      background-color: #523a28;
-      color: #e4c79d;
-      border: none;
-      border-radius: 10px;
-      font-size: 1em;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    .content-section p {
+      margin-bottom: 10px;
     }
 
-    button:hover {
-      background-color: #704c2e;
-      color: white;
+    .content-section ul {
+      padding-left: 20px;
+    }
+
+    .content-section ul li {
+      margin-bottom: 5px;
     }
 
     @media (max-width: 768px) {
@@ -175,10 +140,6 @@
         font-size: 0.8em;
       }
 
-      button, input {
-        font-size: 0.9em;
-      }
-
       footer {
         font-size: 0.8em;
       }
@@ -191,29 +152,82 @@
     Medieval Civilizations Companion App
   </header>
   <nav>
-    <a href="#home">Home</a>
-    <a href="#details">Game Details</a>
-    <a href="#play">Play</a>
-    <a href="#news">News</a>
-    <a href="#auth">Account</a>
-    <a href="#contact">Contact</a>
+    <a href="#" onclick="showTab('home')">Home</a>
+    <a href="#" onclick="showTab('details')">Game Details</a>
+    <a href="#" onclick="showTab('play')">Play</a>
+    <a href="#" onclick="showTab('news')">News</a>
+    <a href="#" onclick="showTab('contact')">Contact</a>
   </nav>
-  <section id="auth">
-    <h2>Account Login / Signup</h2>
-    <div class="auth-container">
-      <h3>Login</h3>
-      <input type="email" id="loginEmail" placeholder="Email">
-      <input type="password" id="loginPassword" placeholder="Password">
-      <button onclick="login()">Login</button>
-      <h3>Create Account</h3>
-      <input type="email" id="signupEmail" placeholder="Email">
-      <input type="password" id="signupPassword" placeholder="Password">
-      <button onclick="signup()">Create Account</button>
-      <p id="authMessage"></p>
+
+  <section id="home" class="tab-content active">
+    <div class="content-section">
+      <h2>Welcome to Medieval Civilizations</h2>
+      <p>Explore and immerse yourself in the world of medieval kingdoms, epic battles, and rich history.</p>
+      <p>This companion app helps you navigate the game's features, track progress, and access useful information about medieval civilizations.</p>
     </div>
   </section>
+
+  <section id="details" class="tab-content">
+    <div class="content-section">
+      <h2>Game Details</h2>
+      <p>Medieval Civilizations is a strategy game where players build, manage, and expand their kingdoms during the medieval era.</p>
+      <ul>
+        <li><strong>Features:</strong> Kingdom management, resource gathering, diplomacy, and warfare.</li>
+        <li><strong>Era:</strong> Experience different historical periods, including the Dark Ages, the Renaissance, and more.</li>
+        <li><strong>Goal:</strong> Become the most powerful ruler through strategic alliances, battles, and diplomacy.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="play" class="tab-content">
+    <div class="content-section">
+      <h2>Start Playing</h2>
+      <p>To start playing, visit the official game page:</p>
+      <a href="https://medievalcivilizations.online" target="_blank">
+        <button>Play Now</button>
+      </a>
+    </div>
+  </section>
+
+  <section id="news" class="tab-content">
+    <div class="content-section">
+      <h2>Latest News</h2>
+      <p>Stay updated with the latest news and updates from the game developers.</p>
+      <ul>
+        <li>New update released: Version 1.2 includes new game features.</li>
+        <li>Game expansion coming soon: Explore the Kingdoms of the East.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="tab-content">
+    <div class="content-section">
+      <h2>Contact Us</h2>
+      <p>If you have any questions or feedback, feel free to reach out to us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:largefort@gmail.com">largefort@gmail.com</a></li>
+        <li><strong>Twitter (X):</strong> <a href="https://x.com/egilljafet60449" target="_blank">@egilljafet60449</a></li>
+        <li><strong>Discord:</strong> Join our community on Discord! <a href="https://discord.gg/xRWcsyc86x" target="_blank">Discord Invite</a></li>
+      </ul>
+    </div>
+  </section>
+
   <footer>
     © 2025 Medieval Civilizations - All Rights Reserved
   </footer>
+
+  <script>
+    function showTab(tabId) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      const activeTab = document.getElementById(tabId);
+      if (activeTab) {
+        activeTab.classList.add('active');
+      }
+    }
+  </script>
 </body>
 </html>
